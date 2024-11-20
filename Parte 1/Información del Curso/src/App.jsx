@@ -1,63 +1,57 @@
-const Hello = (props) => {
-  console.log(props);
+const Header = (props) => {
   return (
-    <div>
+    <>
+      <h1>{props.course}</h1>
+    </>
+  );
+};
+const Part = (props) => {
+  return (
+    <>
       <p>
-        Hello {props.name}, you are {props.age} years old.
+        {props.info} {props.exercises}
       </p>
-    </div>
+    </>
   );
 };
 
-/* function App() o */
-const App = () => {
-  const name = "Frida";
-  const age = 6;
-  const now = new Date();
-  const a = 10;
-  const b = 20;
-  console.log(now, a + b);
+const Content = (info) => {
+  return (
+    <>
+      <Part info={info.info[1].part1} exercises={info.info[1].exercises1} />
+      <Part info={info.info[2].part2} exercises={info.info[2].exercises2} />
+      <Part info={info.info[3].part3} exercises={info.info[3].exercises3} />
+    </>
+  );
+};
 
-  //Un objeto
-  const friends = [
-    { name: "Peter", age: 4 },
-    { name: "Maya", age: 10 },
+const Total = (props) => {
+  const total = props.exercises1 + props.exercises2 + props.exercises3;
+
+  return (
+    <>
+      <p>Number of exercises {total}</p>
+    </>
+  );
+};
+
+const App = () => {
+  const info = [
+    { course: "Half Stack application development" },
+    { part1: "Fundamentals of React", exercises1: 10 },
+    { part2: "Using props to pass data", exercises2: 7 },
+    { part3: "State of a component", exercises3: 14 },
   ];
 
-  //uhn areglo
-  const closeFriends = ["Peter", "Maya"];
   return (
     <div>
-      <h1>Greetings</h1>
-      <Hello name="Andy" age={30 + 5} />
-      <Hello name={name} age={age} />
-      <p> it is {now.toString()}</p>
-      <p>
-        {a} plus {b} is {a + b}
-      </p>
-      <h3>Intento de renderizar un objeto</h3>
-      <p>{/*friends[0]*/}</p>
-      {/* Esto da un error ya que a react no se le puede pasar objetos como childs si no que se le pasan valores primitivos
-      tales como numeros o strigs
-      
-      Error: Objects are not valid as a React child (found: object with keys {name, age}). If you meant to render a collection of children,
-      use an array instead.*/}
-      <p>
-        Una forma correcta de mostrar el contenido del objeto es accediendo a
-        sus propiedades{" "}
-      </p>
-      <p>
-        {" "}
-        Hola {friends[0].name} tienes {friends[0].age} años de edad
-      </p>
-
-      <p> Hola {friends[1].name}</p>
-      <br />
-      <p>Usando un arreglo</p>
-      <p>{closeFriends}</p>
-      <p>
-        El nombre de mis amigos es {closeFriends[0]} y {closeFriends[1]}
-      </p>
+      <Header course={info[0].course} />
+      <Content info={info} />
+      <Total
+        exercises1={info[1].exercises1}
+        exercises2={info[2].exercises2}
+        exercises3={info[3].exercises3}
+      />
     </div>
   );
 };
